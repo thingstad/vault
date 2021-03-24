@@ -1,10 +1,12 @@
 module github.com/hashicorp/vault
 
-go 1.13
+go 1.16
 
 replace github.com/hashicorp/vault/api => ./api
 
 replace github.com/hashicorp/vault/sdk => ./sdk
+
+replace github.com/hashicorp/vault-plugin-auth-jwt => ../vault-plugin-auth-jwt
 
 require (
 	cloud.google.com/go v0.56.0

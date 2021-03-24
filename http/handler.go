@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"mime"
 	"net"
@@ -18,7 +19,6 @@ import (
 	"time"
 
 	"github.com/NYTimes/gziphandler"
-	assetfs "github.com/elazarl/go-bindata-assetfs"
 	"github.com/hashicorp/errwrap"
 	cleanhttp "github.com/hashicorp/go-cleanhttp"
 	sockaddr "github.com/hashicorp/go-sockaddr"
@@ -160,8 +160,8 @@ func Handler(props *vault.HandlerProperties) http.Handler {
 		mux.Handle("/v1/", handleRequestForwarding(core, handleLogical(core)))
 		if core.UIEnabled() == true {
 			if uiBuiltIn {
-				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(&UIAssetWrapper{FileSystem: assetFS()}))))))
-				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(&UIAssetWrapper{FileSystem: assetFS()})))))
+				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
+				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
 			} else {
 				mux.Handle("/ui/", handleUIHeaders(core, handleUIStub()))
 			}
@@ -564,10 +564,11 @@ func handleUIRedirect() http.Handler {
 }
 
 type UIAssetWrapper struct {
-	FileSystem *assetfs.AssetFS
+	// FileSystem *assetfs.AssetFS
+	FileSystem fs.FS
 }
 
-func (fs *UIAssetWrapper) Open(name string) (http.File, error) {
+func (fs *UIAssetWrapper) Open(name string) (fs.File, error) {
 	file, err := fs.FileSystem.Open(name)
 	if err == nil {
 		return file, nil

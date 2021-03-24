@@ -214,7 +214,7 @@ fmt:
 
 assetcheck:
 	@echo "==> Checking compiled UI assets..."
-	@sh -c "'$(CURDIR)/scripts/assetcheck.sh'"
+	#@sh -c "'$(CURDIR)/scripts/assetcheck.sh'"
 
 spellcheck:
 	@echo "==> Spell checking website..."

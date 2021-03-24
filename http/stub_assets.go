@@ -2,15 +2,13 @@
 
 package http
 
-import (
-	assetfs "github.com/elazarl/go-bindata-assetfs"
-)
+import "io/fs"
 
 func init() {
 	uiBuiltIn = false
 }
 
 // assetFS is a stub for building Vault without a UI.
-func assetFS() *assetfs.AssetFS {
+func assetFS() fs.FS {
 	return nil
 }
