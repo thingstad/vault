@@ -1,0 +1,33 @@
+<!DOCTYPE html lang="en">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="no-store" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Vault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    
+<meta name="vault/config/environment" content="%7B%22modulePrefix%22%3A%22vault%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2Fui%2F%22%2C%22serviceWorkerScope%22%3A%22%2Fv1%2Fsys%2Fstorage%2Fraft%2Fsnapshot%22%2C%22locationType%22%3A%22auto%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%22POLLING_URLS%22%3A%5B%22sys%2Fhealth%22%2C%22sys%2Freplication%2Fstatus%22%2C%22sys%2Fseal-status%22%5D%2C%22NAMESPACE_ROOT_URLS%22%3A%5B%22sys%2Fhealth%22%2C%22sys%2Fseal-status%22%2C%22sys%2Flicense%2Ffeatures%22%2C%22sys%2Finternal%2Fcounters%2Fconfig%22%5D%2C%22DEFAULT_PAGE_SIZE%22%3A100%7D%2C%22flashMessageDefaults%22%3A%7B%22timeout%22%3A7000%2C%22sticky%22%3Afalse%7D%2C%22contentSecurityPolicyHeader%22%3A%22Content-Security-Policy-Report-Only%22%2C%22contentSecurityPolicy%22%3A%7B%22default-src%22%3A%5B%22'none'%22%5D%2C%22script-src%22%3A%5B%22'self'%22%5D%2C%22font-src%22%3A%5B%22'self'%22%5D%2C%22connect-src%22%3A%5B%22'self'%22%5D%2C%22img-src%22%3A%5B%22'self'%22%5D%2C%22style-src%22%3A%5B%22'self'%22%5D%2C%22media-src%22%3A%5B%22'self'%22%5D%7D%2C%22ember-cli-mirage%22%3A%7B%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22exportApplicationGlobal%22%3Afalse%7D" />
+<meta name="kmip/config/environment" content="%7B%22modulePrefix%22%3A%22kmip%22%2C%22environment%22%3A%22production%22%7D" />
+<meta name="open-api-explorer/config/environment" content="%7B%22modulePrefix%22%3A%22open-api-explorer%22%2C%22environment%22%3A%22production%22%2C%22APP%22%3A%7B%22NAMESPACE_ROOT_URLS%22%3A%5B%22sys/health%22%2C%22sys/seal-status%22%2C%22sys/license/features%22%5D%7D%7D" />
+<meta name="replication/config/environment" content="%7B%22modulePrefix%22%3A%22replication%22%2C%22environment%22%3A%22production%22%7D" />
+
+    <link rel="stylesheet" href="/ui/assets/vendor-6e73686c1f6b5ec5181441302880f4a6.css" integrity="sha256-K6eUiDDZ4Rg8dacFAeyH94jMQ+UX/rkgV5ORsVA1AfY= sha512-LojqPuSa8eGFFqQ6gJfEVQmgfsALEQWLkckl7ZPjT86ZWSHkxZh+zg+WI0A6WgExVOw5tyn+aKMzVtGb2h6YaQ==" >
+    <link rel="stylesheet" href="/ui/assets/vault-b4b47aff32f4c594c85641d2e08ad03f.css" integrity="sha256-H7/b9xq1eloTRsqP6OnmdI5lV8sgHZZ0BJdzXkWTlDE= sha512-bGwxaStr2HtSS7m+RQXhMhYWZZxxVgwzOAkokmRRK3m9TnqIX/dGqvtkDbV7MXXLUEp0dPwM710E9sr9lfjFMg==" >
+    <link rel="icon" type="image/png" href="/ui/favicon-c02e22ca67f83a0fb6f2fd265074910a.png" />
+
+    <meta name="vault/config/asset-manifest" content="%7B%22bundles%22%3A%7B%22kmip%22%3A%7B%22assets%22%3A%5B%7B%22uri%22%3A%22/ui/engines-dist/kmip/assets/engine-104be8b53671766e11f4c0eec49518d0.js%22%2C%22type%22%3A%22js%22%7D%2C%7B%22uri%22%3A%22/ui/engines-dist/kmip/config/environment-0123205ae026fc9ed3e41f1d552270f8.js%22%2C%22type%22%3A%22js%22%7D%5D%7D%2C%22open-api-explorer%22%3A%7B%22assets%22%3A%5B%7B%22uri%22%3A%22/ui/engines-dist/open-api-explorer/assets/engine-62ae6a1404951ee9b6a34d6fc100eb08.js%22%2C%22type%22%3A%22js%22%7D%2C%7B%22uri%22%3A%22/ui/engines-dist/open-api-explorer/assets/engine-9dcfdf942f31c3caa1d6dfd57c3cc072.css%22%2C%22type%22%3A%22css%22%7D%2C%7B%22uri%22%3A%22/ui/engines-dist/open-api-explorer/assets/engine-vendor-700b2133eae35e9a3196b857dad68111.css%22%2C%22type%22%3A%22css%22%7D%2C%7B%22uri%22%3A%22/ui/engines-dist/open-api-explorer/config/environment-6da0fcce17b2031e2559754701e92d69.js%22%2C%22type%22%3A%22js%22%7D%5D%7D%2C%22replication%22%3A%7B%22assets%22%3A%5B%7B%22uri%22%3A%22/ui/engines-dist/replication/assets/engine-c6200f70b0f831975f7e679e9c1c1d34.js%22%2C%22type%22%3A%22js%22%7D%2C%7B%22uri%22%3A%22/ui/engines-dist/replication/config/environment-fcc3a0f22bdfd265a50708864776440a.js%22%2C%22type%22%3A%22js%22%7D%5D%7D%7D%7D" />
+  </head>
+  <body>
+    
+
+    <script src="/ui/assets/vendor-b0d1238638583ae8d795cc60cfe5a843.js" integrity="sha256-JxCSZllwn3KjxbfPvRY+z/lm4AjHCgvKqay2lpdNRv4= sha512-LN6CaP+VVUmxk23IQTGef1hgFQ1DiVIid5zuiq4rSnTpLcGpRzn4n/6jcpSFJXUZJpH0t+pOHrS5tcp9kvFoEQ==" ></script>
+    <script src="/ui/assets/vault-d3948f3b4aceb140308b981437d038bb.js" integrity="sha256-UggXpbH11/GEwpzYTTHaiNlUCKf8ZXrCuTtBn1H+Nts= sha512-NLPLm9XGcrgVg11tI6uHYeJUyk+F/H+w4jrzjytruY8DpHjPQGMc08Z109mnRY/0Oc6YjVcmZbUoJoiLlVfwcA==" ></script>
+
+    <div id="ember-basic-dropdown-wormhole"></div>
+<script src="/ui/sw-registration-65dd6e15d4d40ce435383a9edaccfc03.js" integrity="sha256-KoEQPXxV49s78E5T1ju3xlDXrHo0PLXFKZzavjfQ2OU= sha512-LXe7yuPl287g7dr7xlvsKvCuJbfZJdx/uqd2bni8ZK6ZVkU3E6HP15G20qjI83wGdFdUFu21JrSFdt2jtY+BVQ==" ></script>
+  </body>
+</html>
