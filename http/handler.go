@@ -17,8 +17,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ryboe/q"
-
 	"github.com/NYTimes/gziphandler"
 	"github.com/hashicorp/errwrap"
 	cleanhttp "github.com/hashicorp/go-cleanhttp"
@@ -161,8 +159,6 @@ func Handler(props *vault.HandlerProperties) http.Handler {
 		mux.Handle("/v1/", handleRequestForwarding(core, handleLogical(core)))
 		if core.UIEnabled() == true {
 			if uiBuiltIn {
-				DebugEmbed()
-				// mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
 				mux.Handle("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
 				mux.Handle("/ui/assets/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
 				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
@@ -574,36 +570,14 @@ type UIAssetWrapper struct {
 }
 
 func (fsw *UIAssetWrapper) Open(name string) (fs.File, error) {
-	// d, err := fsw.FileSystem.ReadDir(".")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// for _, c := range d {
-	// 	q.Q(c.Name(), c.IsDir())
-	// }
-	q.Q("--> name:", name)
 	name = "web_ui/" + name
-	q.Q("--> new name:", name)
 	file, err := fsw.FileSystem.Open(name)
-	q.Q("--> err:", err)
 	if err == nil {
 		return file, nil
 	}
-
-	if errors.Is(err, fs.ErrNotExist) {
-		q.Q("--> path error")
-	}
 	// serve index.html instead of 404ing
-	q.Q("--> not found, trying web_ui/index.html")
-	// if err == os.ErrNotExist {
 	if errors.Is(err, fs.ErrNotExist) {
-		q.Q("trying other")
 		file, err := fsw.FileSystem.Open("web_ui/index.html")
-		if err != nil {
-			q.Q(err)
-		}
-		fstat, _ := file.Stat()
-		q.Q("--> found file", fstat.Name())
 		return file, err
 	}
 	return nil, err
