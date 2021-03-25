@@ -27,6 +27,8 @@ _testmain.go
 # Other dirs
 /bin/
 /pkg/
+
+# Generated Web UI goes here
 /http/web_ui/**
 
 # Vault-specific
