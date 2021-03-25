@@ -640,7 +640,7 @@ github.com/hashicorp/vault-plugin-auth-cf/util
 ## explicit
 github.com/hashicorp/vault-plugin-auth-gcp/plugin
 github.com/hashicorp/vault-plugin-auth-gcp/plugin/cache
-# github.com/hashicorp/vault-plugin-auth-jwt v0.9.2 => ../vault-plugin-auth-jwt
+# github.com/hashicorp/vault-plugin-auth-jwt v0.9.2
 ## explicit
 github.com/hashicorp/vault-plugin-auth-jwt
 # github.com/hashicorp/vault-plugin-auth-kerberos v0.3.0
@@ -1089,9 +1089,6 @@ github.com/ryanuber/columnize
 # github.com/ryanuber/go-glob v1.0.0
 ## explicit
 github.com/ryanuber/go-glob
-# github.com/ryboe/q v1.0.13
-## explicit
-github.com/ryboe/q
 # github.com/samuel/go-zookeeper v0.0.0-20190923202752-2cc03de413da
 ## explicit
 github.com/samuel/go-zookeeper/zk
@@ -1771,4 +1768,3 @@ sigs.k8s.io/structured-merge-diff/v3/value
 sigs.k8s.io/yaml
 # github.com/hashicorp/vault/api => ./api
 # github.com/hashicorp/vault/sdk => ./sdk
-# github.com/hashicorp/vault-plugin-auth-jwt => ../vault-plugin-auth-jwt
