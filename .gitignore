@@ -27,7 +27,7 @@ _testmain.go
 # Other dirs
 /bin/
 /pkg/
-/http/webui/**
+/http/web_ui/**
 
 # Vault-specific
 example.hcl

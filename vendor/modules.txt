@@ -1089,9 +1089,6 @@ github.com/ryanuber/columnize
 # github.com/ryanuber/go-glob v1.0.0
 ## explicit
 github.com/ryanuber/go-glob
-# github.com/ryboe/q v1.0.13
-## explicit
-github.com/ryboe/q
 # github.com/samuel/go-zookeeper v0.0.0-20190923202752-2cc03de413da
 ## explicit
 github.com/samuel/go-zookeeper/zk
