@@ -2,6 +2,7 @@ package http
 
 import (
 	"embed"
+	"io/fs"
 )
 
 // content is our static web server content.
@@ -9,6 +10,11 @@ import (
 var content embed.FS
 
 // assetFS is a stub for building Vault without a UI.
-func assetFS() embed.FS {
-	return content
+func assetFS() fs.FS {
+	// sub to web_ui
+	f, err := fs.Sub(content, "web_ui")
+	if err != nil {
+		panic(err)
+	}
+	return f
 }

@@ -159,8 +159,7 @@ func Handler(props *vault.HandlerProperties) http.Handler {
 		mux.Handle("/v1/", handleRequestForwarding(core, handleLogical(core)))
 		if core.UIEnabled() == true {
 			if uiBuiltIn {
-				mux.Handle("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
-				mux.Handle("/ui/assets/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
+				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
 				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
 			} else {
 				mux.Handle("/ui/", handleUIHeaders(core, handleUIStub()))
@@ -564,20 +563,17 @@ func handleUIRedirect() http.Handler {
 }
 
 type UIAssetWrapper struct {
-	// FileSystem *assetfs.AssetFS
-	// FileSystem embed.FS
 	FileSystem fs.FS
 }
 
 func (fsw *UIAssetWrapper) Open(name string) (fs.File, error) {
-	name = "web_ui/" + name
 	file, err := fsw.FileSystem.Open(name)
 	if err == nil {
 		return file, nil
 	}
 	// serve index.html instead of 404ing
 	if errors.Is(err, fs.ErrNotExist) {
-		file, err := fsw.FileSystem.Open("web_ui/index.html")
+		file, err := fsw.FileSystem.Open("index.html")
 		return file, err
 	}
 	return nil, err
