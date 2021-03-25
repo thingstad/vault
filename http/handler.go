@@ -159,8 +159,8 @@ func Handler(props *vault.HandlerProperties) http.Handler {
 		mux.Handle("/v1/", handleRequestForwarding(core, handleLogical(core)))
 		if core.UIEnabled() == true {
 			if uiBuiltIn {
-				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
-				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
+				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(&UIAssetWrapper{FileSystem: assetFS()}))))))
+				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(&UIAssetWrapper{FileSystem: assetFS()})))))
 			} else {
 				mux.Handle("/ui/", handleUIHeaders(core, handleUIStub()))
 			}
@@ -563,10 +563,10 @@ func handleUIRedirect() http.Handler {
 }
 
 type UIAssetWrapper struct {
-	FileSystem fs.FS
+	FileSystem http.FileSystem
 }
 
-func (fsw *UIAssetWrapper) Open(name string) (fs.File, error) {
+func (fsw *UIAssetWrapper) Open(name string) (http.File, error) {
 	file, err := fsw.FileSystem.Open(name)
 	if err == nil {
 		return file, nil
