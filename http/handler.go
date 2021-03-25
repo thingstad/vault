@@ -14,9 +14,10 @@ import (
 	"net/http"
 	"net/textproto"
 	"net/url"
-	"os"
 	"strings"
 	"time"
+
+	"github.com/ryboe/q"
 
 	"github.com/NYTimes/gziphandler"
 	"github.com/hashicorp/errwrap"
@@ -160,7 +161,10 @@ func Handler(props *vault.HandlerProperties) http.Handler {
 		mux.Handle("/v1/", handleRequestForwarding(core, handleLogical(core)))
 		if core.UIEnabled() == true {
 			if uiBuiltIn {
-				mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
+				DebugEmbed()
+				// mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
+				mux.Handle("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
+				mux.Handle("/ui/assets/", http.StripPrefix("/ui/", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()})))))))
 				mux.Handle("/robots.txt", gziphandler.GzipHandler(handleUIHeaders(core, handleUI(http.FileServer(http.FS(&UIAssetWrapper{FileSystem: assetFS()}))))))
 			} else {
 				mux.Handle("/ui/", handleUIHeaders(core, handleUIStub()))
@@ -565,17 +569,42 @@ func handleUIRedirect() http.Handler {
 
 type UIAssetWrapper struct {
 	// FileSystem *assetfs.AssetFS
+	// FileSystem embed.FS
 	FileSystem fs.FS
 }
 
-func (fs *UIAssetWrapper) Open(name string) (fs.File, error) {
-	file, err := fs.FileSystem.Open(name)
+func (fsw *UIAssetWrapper) Open(name string) (fs.File, error) {
+	// d, err := fsw.FileSystem.ReadDir(".")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// for _, c := range d {
+	// 	q.Q(c.Name(), c.IsDir())
+	// }
+	q.Q("--> name:", name)
+	name = "web_ui/" + name
+	q.Q("--> new name:", name)
+	file, err := fsw.FileSystem.Open(name)
+	q.Q("--> err:", err)
 	if err == nil {
 		return file, nil
 	}
+
+	if errors.Is(err, fs.ErrNotExist) {
+		q.Q("--> path error")
+	}
 	// serve index.html instead of 404ing
-	if err == os.ErrNotExist {
-		return fs.FileSystem.Open("index.html")
+	q.Q("--> not found, trying web_ui/index.html")
+	// if err == os.ErrNotExist {
+	if errors.Is(err, fs.ErrNotExist) {
+		q.Q("trying other")
+		file, err := fsw.FileSystem.Open("web_ui/index.html")
+		if err != nil {
+			q.Q(err)
+		}
+		fstat, _ := file.Stat()
+		q.Q("--> found file", fstat.Name())
+		return file, err
 	}
 	return nil, err
 }

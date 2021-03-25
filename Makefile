@@ -139,13 +139,7 @@ update-plugins:
 	grep vault-plugin- vendor/vendor.json | cut -d '"' -f 4 | xargs govendor fetch
 
 static-assets-dir:
-	@mkdir -p ./pkg/web_ui
-
-static-assets: static-assets-dir
-	@echo "--> Generating static assets"
-	@go-bindata-assetfs -o bindata_assetfs.go -pkg http -prefix pkg -modtime 1480000000 -tags ui ./pkg/web_ui/...
-	@mv bindata_assetfs.go http
-	@$(MAKE) -f $(THIS_FILE) fmt
+	@mkdir -p ./http/web_ui
 
 test-ember:
 	@echo "--> Installing JavaScript assets"
@@ -187,8 +181,8 @@ ember-dist-dev:
 	@echo "--> Building Ember application"
 	@cd ui && yarn run build-dev
 
-static-dist: ember-dist static-assets
-static-dist-dev: ember-dist-dev static-assets
+static-dist: ember-dist 
+static-dist-dev: ember-dist-dev 
 
 proto:
 	protoc vault/*.proto --go_out=plugins=grpc,paths=source_relative:.
@@ -259,6 +253,6 @@ ci-verify:
 
 .PHONY: bin default prep test vet bootstrap ci-bootstrap fmt fmtcheck mysql-database-plugin mysql-legacy-database-plugin cassandra-database-plugin influxdb-database-plugin postgresql-database-plugin mssql-database-plugin hana-database-plugin mongodb-database-plugin static-assets ember-dist ember-dist-dev static-dist static-dist-dev assetcheck check-vault-in-path check-browserstack-creds test-ui-browserstack packages build build-ci
 
-.NOTPARALLEL: ember-dist ember-dist-dev static-assets
+.NOTPARALLEL: ember-dist ember-dist-dev
 
 -include packagespec.mk
