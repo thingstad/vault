@@ -29,6 +29,7 @@ import (
 	"github.com/hashicorp/vault/sdk/helper/pathmanager"
 	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/hashicorp/vault/vault"
+	"github.com/ryboe/q"
 )
 
 const (
@@ -570,7 +571,9 @@ type UIAssetWrapper struct {
 }
 
 func (fsw *UIAssetWrapper) Open(name string) (fs.File, error) {
+	q.Q("-->name:", name)
 	name = "web_ui/" + name
+	q.Q("-->web_ui name:", name)
 	file, err := fsw.FileSystem.Open(name)
 	if err == nil {
 		return file, nil

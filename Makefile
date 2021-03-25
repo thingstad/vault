@@ -139,7 +139,7 @@ update-plugins:
 	grep vault-plugin- vendor/vendor.json | cut -d '"' -f 4 | xargs govendor fetch
 
 static-assets-dir:
-	@mkdir -p ./http/web_ui
+	@mkdir -p ./http/webui
 
 test-ember:
 	@echo "--> Installing JavaScript assets"
