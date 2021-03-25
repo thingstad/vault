@@ -10,9 +10,10 @@ import (
 //go:embed web_ui/*
 var content embed.FS
 
-// assetFS is a stub for building Vault without a UI.
+// assetFS is a http Filesystem that serves the generated web UI from the
+// "ember-dist" make step
 func assetFS() http.FileSystem {
-	// sub to web_ui
+	// sub out to web_ui, where the generated content lives
 	f, err := fs.Sub(content, "web_ui")
 	if err != nil {
 		panic(err)
