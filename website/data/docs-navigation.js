@@ -210,7 +210,17 @@ export default [
           },
         ],
       },
-      'caching',
+      {
+        category: 'caching',
+        content: [
+          {
+            category: 'persistent-caches',
+            content: [
+              'kubernetes',
+            ],
+          },
+        ],
+      },
       'template',
       'winsvc',
     ],
